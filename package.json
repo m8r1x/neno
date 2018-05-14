@@ -13,7 +13,7 @@
     "build": "webpack --config config/webpack.config.js",
     "lint": "eslint --ext .jsx .",
     "precommit": "npm run-script test && npm run-script lint",
-    "start": "electron .",
+    "start": "electron app/main.js",
     "test": "jest",
     "watch": "npm run-script build --watch"
   },

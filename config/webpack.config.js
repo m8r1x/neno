@@ -7,11 +7,12 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
-  target: "electron",
+  mode: process.env.NODE_ENV || "development",
+  target: "electron-main",
   entry: path.resolve("src/client/index.js"),
   output: {
     filename: "bundle.js",
-    path: path.resolve("public/js")
+    path: path.resolve("public/build")
   },
   module: {
     rules: [
@@ -23,7 +24,14 @@ module.exports = {
         test: /\.css$/,
         use: [
           devMode ? "style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader"
+          {
+            loader: "css-loader",
+            options: {
+              minimize: true,
+              modules: true,
+              localIdentName: "[name]__[local]__[hash:base64:5]"
+            }
+          }
         ]
       }
     ]
@@ -32,7 +40,7 @@ module.exports = {
     ? []
     : [
       new MiniCssExtractPlugin({
-        filename: path.resolve("public/css/bundle.css")
+        filename: "[name].css"
       })
     ],
   optimization: {

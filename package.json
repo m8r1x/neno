@@ -1,7 +1,48 @@
 {
-  "name": "neno",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "license": "MIT"
+	"name": "neno",
+	"version": "0.0.1",
+	"description": "",
+	"author": "wmik",
+	"license": "MIT",
+	"main": "app/main.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/m8r1x/neno.git"
+  },
+  "scripts": {
+    "build": "webpack --config config/webpack.config.js",
+    "lint": "eslint --ext .jsx .",
+    "precommit": "npm run-script test && npm run-script lint",
+    "start": "electron .",
+    "test": "jest",
+    "watch": "npm run-script build --watch"
+  },
+	"dependencies": {
+		"electron": "^2.0.0",
+		"react": "^16.3.2",
+		"react-dom": "^16.3.2"
+	},
+	"devDependencies": {
+		"babel-core": "^6.26.3",
+		"babel-jest": "^22.4.3",
+		"babel-loader": "^7.1.4",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-react": "^6.24.1",
+		"css-loader": "^0.28.11",
+		"enzyme": "^3.3.0",
+		"enzyme-adapter-react-16": "^1.1.1",
+		"eslint": "^4.19.1",
+		"eslint-plugin-react": "^7.8.2",
+		"husky": "^0.14.3",
+		"jest": "^22.4.3",
+		"mini-css-extract-plugin": "^0.4.0",
+		"optimize-css-assets-webpack-plugin": "^4.0.1",
+		"style-loader": "^0.21.0",
+		"uglifyjs-webpack-plugin": "^1.2.5",
+		"webpack": "^4.8.3"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/config/setupTest.js"
+  }
 }

@@ -4,19 +4,39 @@ const path = require("path");
 const url = require("url");
 
 const { app, BrowserWindow } = require("electron");
+const isDev = require("electron-reload");
 
 const { logger: initLogger } = require("../src/utils");
 const appInfo = require("../package.json");
 
+if (isDev) {
+  require("electron-reload")(path.resolve("public/build"), {
+    electron: path.resolve("node_modules/.bin/electron")
+  });
+}
+
 let mainWindow;
+
+// eslint-disable-next-line no-unused-vars
+const isSecondInstance = app.makeSingleInstance((cli, workingDirectory) => {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) {
+      mainWindow.restore();
+    }
+    mainWindow.focus();
+  }
+});
+
+if (isSecondInstance) {
+  app.quit();
+}
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     show: false,
-    // TODO: Security enhancements
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true
+    icon: path.resolve("public/assets/icons/notepad-128.png"),
+    [process.env.NODE_ENV === "production" && "webPreferences"]: {
+      nodeIntegration: false
     }
   });
 
@@ -48,7 +68,7 @@ app.on("ready", () => {
   initLogger();
   logger.info(
     `${appInfo.name}(${appInfo.version}) has started on ` +
-      `${os.type()}(${os.release()}) on ${os.platform()}(` +
+      `${os.type()}(${os.release()}) - ${os.platform()}(` +
       `${os.arch()})`
   );
   createMainWindow();

@@ -29,7 +29,8 @@ module.exports = {
             options: {
               minimize: true,
               modules: true,
-              localIdentName: "[name]__[local]__[hash:base64:5]"
+              localIdentName: "[name]__[local]__[hash:base64:5]",
+              camelCase: true
             }
           }
         ]
@@ -40,7 +41,7 @@ module.exports = {
     ? []
     : [
       new MiniCssExtractPlugin({
-        filename: "[name].css"
+        filename: "bundle.css"
       })
     ],
   optimization: {

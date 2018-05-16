@@ -1,15 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
-import * as styles from "./MainView.css";
+import { ViewContainer, Column } from "../../components";
 
-const MainView = ({ className = "", ...extraProps }) => {
-  const classes = `${styles["main-view"]} ${className}`;
-  return <div className={classes} {...extraProps} />;
+const MainView = ({ className }) => {
+  return (
+    <div className={className}>
+      <ViewContainer flex justify="center">
+        <Column>
+          <ViewContainer px={2} />
+        </Column>
+        <Column grow={2} backgroundColor="#ffffff">
+          <ViewContainer px={2} />
+        </Column>
+        <Column>
+          <ViewContainer px={2} />
+        </Column>
+      </ViewContainer>
+    </div>
+  );
 };
 
 MainView.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  height: PropTypes.string
 };
 
-export default MainView;
+const StyledMainView = styled(MainView)`
+  height: ${({ height }) => height};
+`;
+
+
+StyledMainView.defaultProps = {
+  height: "100%"
+};
+
+export default StyledMainView;

@@ -5,5 +5,5 @@ import App from "../src/client/App";
 
 test("App renders without error", () => {
   const app = shallow(<App />);
-  expect(app.hasClass("app")).toBe(true);
+  expect(app.length).toBe(1);
 });

@@ -29,7 +29,7 @@ module.exports = {
             options: {
               minimize: true,
               modules: true,
-              localIdentName: "[name]__[local]__[hash:base64:5]",
+              localIdentName: "[local]",
               camelCase: true
             }
           }

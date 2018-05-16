@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { ViewContainer, Column } from "../../components";
+import { ViewContainer, Column, RichEditor } from "../../components";
 
 const MainView = ({ className }) => {
   return (
@@ -11,8 +11,10 @@ const MainView = ({ className }) => {
         <Column>
           <ViewContainer px={2} />
         </Column>
-        <Column grow={2} backgroundColor="#ffffff">
-          <ViewContainer px={2} />
+        <Column backgroundColor="#ffffff" maxWidth="56%">
+          <ViewContainer px={2}>
+            <RichEditor />
+          </ViewContainer>
         </Column>
         <Column>
           <ViewContainer px={2} />

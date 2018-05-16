@@ -10,12 +10,14 @@ Column.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   backgroundColor: PropTypes.string,
-  grow: PropTypes.number
+  grow: PropTypes.number,
+  maxWidth: PropTypes.string,
 };
 
 const StyledColumn = styled.div`
   flex-grow: ${({ grow }) => grow};
   background-color: ${({ backgroundColor }) => backgroundColor};
+  ${({ maxWidth }) => `max-width: ${maxWidth}`};
 `;
 
 

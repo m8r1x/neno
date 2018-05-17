@@ -5,6 +5,7 @@ import BlockStyleControls from "./BlockStyleControls";
 import InlineStyleControls from "./InlineStyleControls";
 
 import * as styles from "./RichEditor.css";
+import { FlexContainer } from "../flex-container";
 
 class RichEditor extends React.Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class RichEditor extends React.Component {
       }
     }
     return (
-      <div style={{ margin: "2rem auto", maxWidth: "80%" }}>
+      <FlexContainer direction="column" px={12}>
         <BlockStyleControls
           editorState={editorState}
           onToggle={this.toggleBlockType}
@@ -92,7 +93,7 @@ class RichEditor extends React.Component {
             spellCheck={true}
           />
         </div>
-      </div>
+      </FlexContainer>
     );
   }
 }

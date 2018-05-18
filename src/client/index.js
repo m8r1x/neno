@@ -6,4 +6,6 @@ import "./styles/reset.css";
 
 import App from "./App";
 
+require("../utils/warn-open-devtools");
+
 render(<App />, document.getElementById("root"));

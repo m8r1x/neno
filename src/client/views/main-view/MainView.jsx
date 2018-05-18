@@ -2,22 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { ViewContainer, Column } from "../../components";
+import { FlexContainer, FlexItem, RichEditor } from "../../components";
 
 const MainView = ({ className }) => {
   return (
     <div className={className}>
-      <ViewContainer flex justify="center">
-        <Column>
-          <ViewContainer px={2} />
-        </Column>
-        <Column grow={2} backgroundColor="#ffffff">
-          <ViewContainer px={2} />
-        </Column>
-        <Column>
-          <ViewContainer px={2} />
-        </Column>
-      </ViewContainer>
+      <FlexContainer justify="center">
+        <FlexItem basis="22%">
+          <FlexContainer px={2} />
+        </FlexItem>
+        <FlexItem basis="56%" backgroundColor="#ffffff" minHeight="640px" mw0>
+          <RichEditor />
+        </FlexItem>
+        <FlexItem basis="22%">
+          <FlexContainer px={2} />
+        </FlexItem>
+      </FlexContainer>
     </div>
   );
 };

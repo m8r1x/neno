@@ -1,10 +1,10 @@
 import React from "react";
 import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from "draft-js";
+import "draft-js/dist/Draft.css"
 
 import BlockStyleControls from "./BlockStyleControls";
 import InlineStyleControls from "./InlineStyleControls";
 
-import * as styles from "./RichEditor.css";
 import { FlexContainer } from "../flex-container";
 
 class RichEditor extends React.Component {
@@ -58,7 +58,7 @@ class RichEditor extends React.Component {
 
   render() {
     const { editorState } = this.state;
-    let className = `${styles["RichEditor-editor"]}`;
+    let className = "RichEditor-editor";
     var contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
       if (
@@ -67,7 +67,7 @@ class RichEditor extends React.Component {
           .first()
           .getType() !== "unstyled"
       ) {
-        className += ` ${styles["RichEditor-hidePlaceholder"]}`;
+        className += " RichEditor-hidePlaceholder";
       }
     }
     return (

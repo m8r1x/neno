@@ -3,20 +3,23 @@ import PropTypes from "prop-types";
 
 class MapArray extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.from !== this.props.from;
+    if (this.props.useDataToUpdate) {
+      return nextProps.from.length !== this.props.from.length;
+    }
+    return true;
   }
   render() {
-    const { children, from, map } = this.props;
+    const { children, from, map, propAsKey } = this.props;
+    var keyProp = propAsKey;
     const child = React.Children.only(children);
-    const mapped = from.map((childProps, index) =>
-      React.cloneElement(child, {
-        key: `${btoa(`no:${index} out of ${from.length}`)}`,
-        ...map(
-          childProps,
-          `${btoa(`no:${index} out of ${from.length}`)}`
-        )
+    const mapped = from.map((childProps, index) => {
+      const key = childProps[keyProp] ||
+        `${btoa(`${child.type}${index}${from.length}`)}`;
+      return React.cloneElement(child, {
+        key,
+        ...map(childProps, key)
       })
-    );
+    });
     return <React.Fragment>{mapped}</React.Fragment>;
   }
 }
@@ -24,11 +27,14 @@ class MapArray extends React.Component {
 MapArray.propTypes = {
   children: PropTypes.node.isRequired,
   from: PropTypes.array.isRequired,
-  map: PropTypes.func
+  map: PropTypes.func,
+  propAsKey: PropTypes.string,
+  useDataToUpdate: PropTypes.bool
 };
 
 MapArray.defaultProps = {
-  map: e => e
+  map: e => e,
+  useDataToUpdate: false
 };
 
 export default MapArray;

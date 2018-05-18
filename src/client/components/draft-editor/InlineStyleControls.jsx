@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import { MapArray } from "../mapper";
 import StyleButton from "./StyleButton";
 
-import * as styles from "./RichEditor.css";
-
 const INLINE_STYLES = [
   { label: "Bold", style: "BOLD" },
   { label: "Italic", style: "ITALIC" },
@@ -20,7 +18,7 @@ const InlineStyleControls = ({ editorState, onToggle }) => {
     active: currentStyle.has(childProps.style)
   });
   return (
-    <div className={styles["RichEditor-controls"]}>
+    <div className="RichEditor-controls">
       <MapArray from={INLINE_STYLES} map={mapActiveState}>
         <StyleButton onToggle={onToggle} />
       </MapArray>

@@ -8,16 +8,16 @@ const FlexContainer = ({ children, className }) => {
 
 FlexContainer.propTypes = {
   alignContent: PropTypes.oneOf([
-    "start",
-    "end",
+    "flex-start",
+    "flex-end",
     "center",
-    "between",
-    "around",
+    "space-between",
+    "space-around",
     "stretch"
   ]),
   alignItems: PropTypes.oneOf([
-    "start",
-    "end",
+    "flex-start",
+    "flex-end",
     "center",
     "baseline",
     "stretch"
@@ -32,12 +32,12 @@ FlexContainer.propTypes = {
     "row-reverse"
   ]),
   justifyContent: PropTypes.oneOf([
-    "start",
-    "end",
+    "flex-start",
+    "flex-end",
     "center",
-    "between",
-    "around",
-    "evenly"
+    "space-between",
+    "space-around",
+    "space-evenly"
   ]),
   mw0: PropTypes.bool,
   px: PropTypes.number,

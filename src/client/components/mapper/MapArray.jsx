@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 class MapArray extends React.Component {
   shouldComponentUpdate(nextProps) {
     if (this.props.useDataToUpdate) {
-      return nextProps.from.length !== this.props.from.length;
+      return nextProps.from !== this.props.from;
     }
     return true;
   }

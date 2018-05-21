@@ -1,11 +1,22 @@
 import React from "react";
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from "draft-js";
+import {
+  convertFromRaw,
+  convertToRaw,
+  Editor,
+  EditorState,
+  getDefaultKeyBinding,
+  KeyBindingUtil,
+  RichUtils
+} from "draft-js";
+import "draft-js/dist/Draft.css";
+import { remote } from "electron";
 
 import BlockStyleControls from "./BlockStyleControls";
 import InlineStyleControls from "./InlineStyleControls";
 
-import * as styles from "./RichEditor.css";
 import { FlexContainer } from "../flex-container";
+
+const logger = remote.getGlobal("logger");
 
 class RichEditor extends React.Component {
   constructor(props) {
@@ -14,6 +25,7 @@ class RichEditor extends React.Component {
 
     this.editorRef = React.createRef();
     this.focus = () => this.editorRef.current.focus();
+    this.localStorageKey = btoa("latest-editor-state");
     this.onChange = editorState => this.setState({ editorState });
 
     this.handleKeyCommand = this._handleKeyCommand.bind(this);
@@ -22,11 +34,31 @@ class RichEditor extends React.Component {
     this.toggleInlineStyle = this._toggleInlineStyle.bind(this);
   }
 
+  componentDidMount() {
+    const rawDraftContentState = localStorage.getItem(this.localStorageKey);
+    if (rawDraftContentState) {
+      const contentState = convertFromRaw(JSON.parse(rawDraftContentState));
+      this.setState({
+        editorState: EditorState.createWithContent(contentState)
+      });
+      logger.info("load from localStorage successful [latest-editor-state]");
+    }
+  }
+
   _handleKeyCommand(command, editorState) {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
       this.onChange(newState);
       return true;
+    }
+    if (command === "editor-save") {
+      const rawDraftContentState = JSON.stringify(
+        convertToRaw(this.state.editorState.getCurrentContent())
+      );
+      localStorage.removeItem(this.localStorageKey);
+      logger.info("clearing cache...");
+      localStorage.setItem(this.localStorageKey, rawDraftContentState);
+      logger.info("save to cache successful");
     }
     return false;
   }
@@ -43,6 +75,9 @@ class RichEditor extends React.Component {
       }
       return;
     }
+    if (e.keyCode === 83 && KeyBindingUtil.hasCommandModifier(e)) {
+      return "editor-save";
+    }
     return getDefaultKeyBinding(e);
   }
 
@@ -58,7 +93,7 @@ class RichEditor extends React.Component {
 
   render() {
     const { editorState } = this.state;
-    let className = `${styles["RichEditor-editor"]}`;
+    let className = "RichEditor-editor";
     var contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
       if (
@@ -67,11 +102,11 @@ class RichEditor extends React.Component {
           .first()
           .getType() !== "unstyled"
       ) {
-        className += ` ${styles["RichEditor-hidePlaceholder"]}`;
+        className += " RichEditor-hidePlaceholder";
       }
     }
     return (
-      <FlexContainer direction="column" px={12}>
+      <FlexContainer direction="column" px={20}>
         <BlockStyleControls
           editorState={editorState}
           onToggle={this.toggleBlockType}

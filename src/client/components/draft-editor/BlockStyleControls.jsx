@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import { MapArray } from "../mapper";
 import StyleButton from "./StyleButton";
 
-import * as styles from "./RichEditor.css";
-
 const BLOCK_TYPES = [
   { label: "H1", style: "header-one" },
   { label: "H2", style: "header-two" },
@@ -30,7 +28,7 @@ const BlockStyleControls = ({ editorState, onToggle }) => {
     active: childProps.style === blockType
   });
   return (
-    <div className={styles["RichEditor-controls"]}>
+    <div className="RichEditor-controls">
       <MapArray from={BLOCK_TYPES} map={mapActiveState}>
         <StyleButton onToggle={onToggle} />
       </MapArray>

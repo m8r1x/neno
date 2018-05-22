@@ -2,18 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { FlexContainer, Button } from "../";
+import { FlexContainer, NavItem } from "../";
 
 const LeftNavMenu = ({ className }) => {
   return (
-    <FlexContainer
-      alignItems="center"
-      className={className}
-      direction="column"
-    >
-      <Button label="Editor" width="86%"/>
-      <Button label="General" width="86%"/>
-      <Button label="Settings" width="86%"/>
+    <FlexContainer alignItems="center" className={className} direction="column">
+      <NavItem icon="home" label="Home" to="#/home" />
+      <NavItem icon="file-alt" label="Editor" to="#/" />
+      <NavItem icon="cog" label="Settings" to="#/settings" />
     </FlexContainer>
   );
 };

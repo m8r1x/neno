@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { remote } from "electron";
 
 import {
   FlexContainer,
@@ -10,10 +9,7 @@ import {
   LeftNavMenu
 } from "../../components";
 
-const logger = remote.getGlobal("logger");
-
-const EditorView = ({ className, match }) => {
-  logger.info(`navigated to "${match.path}"`);
+const EditorView = ({ className }) => {
   return (
     <div className={className}>
       <FlexContainer justify="center">
@@ -34,7 +30,7 @@ const EditorView = ({ className, match }) => {
 EditorView.propTypes = {
   className: PropTypes.string,
   height: PropTypes.string,
-  match: PropTypes.object
+  location: PropTypes.object
 };
 
 const StyledMainView = styled(EditorView)`

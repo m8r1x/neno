@@ -7,7 +7,13 @@ const FlexItem = ({ children, className }) => {
 };
 
 FlexItem.propTypes = {
-  alignSelf: PropTypes.oneOf(["start", "end", "center", "baseline", "stretch"]),
+  alignSelf: PropTypes.oneOf([
+    "flex-start",
+    "flex-end",
+    "center",
+    "baseline",
+    "stretch"
+  ]),
   basis: PropTypes.string,
   backgroundColor: PropTypes.string,
   children: PropTypes.node,

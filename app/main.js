@@ -4,16 +4,25 @@ const path = require("path");
 const url = require("url");
 
 const { app, BrowserWindow } = require("electron");
-const isDev = require("electron-reload");
+
+/* Just incase anyone decides to npm prune --production */
+var isDev;
+
+try {
+  isDev = require("electron-reload");
+} catch (importError) {
+  isDev = false;
+} finally {
+  if (isDev) {
+    require("electron-reload")(path.resolve("public/build"), {
+      electron: path.resolve("node_modules/.bin/electron")
+    });
+  }
+}
+/* **** */
 
 const { logger: initLogger } = require("../src/utils");
 const appInfo = require("../package.json");
-
-if (isDev) {
-  require("electron-reload")(path.resolve("public/build"), {
-    electron: path.resolve("node_modules/.bin/electron")
-  });
-}
 
 let mainWindow;
 
@@ -52,7 +61,8 @@ function createMainWindow() {
 
   mainWindow.once("ready-to-show", function() {
     mainWindow.maximize();
-    if (process.platform == "darwin") {
+    if (process.platform === "darwin") {
+      /* https://github.com/electron/electron/issues/7076 */
       mainWindow.show();
     }
     logger.info("neno window is shown");

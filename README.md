@@ -1,5 +1,9 @@
 ## neno
+
+[![Build Status](https://travis-ci.org/m8r1x/neno.svg?branch=master)](https://travis-ci.org/m8r1x/neno)
+
 > neno (pronounced /nɛnɒ/ `Not nino 😂😁😂`) is native for `word` in swahili.
+
 
 ### Project structure
 > **Note:** This structure is subject to change at any moment.
